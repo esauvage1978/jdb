@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} Votre compte {% endblock %}
+
+
+
+{% block body %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+
+            <!-- Masthead Avatar Image -->
+            <div class="text-center mb-3">
+                <img class="profile-user-img img-fluid rounded"
+                     src="{{ app.user.avatar.image }}"
+                     alt="User profile picture">
+            </div>
+
+            <h1 class="masthead-heading text-uppercase mb-0">{{ app.user.name }}</h1>
+
+            <!-- Masthead Heading -->
+
+            <!-- Icon Divider -->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <!-- Masthead Subheading -->
+            <p class="masthead-subheading font-weight-light mb-0">
+                <a class="text-white" href="mailto:{{ app.user.email }}">{{ app.user.email }}</a>
+            </p>
+
+        </div>
+    </header>
+    <section class="page-section" id="create">
+        <div class="container">
+
+            <!-- Contact Section Heading -->
+            {% if app.user.emailvalidated == false %}
+                <div class="row">
+                <div class="alert alert-danger alert-dismissible col-12">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Adresse mail non vérifiée !</h5>
+                    <p class="ml-5 mt-5">
+                         Attention votre adresse mail n'a pas encore été vérifiée.
+                    </p>
+                    <p class="ml-5">
+                        <a href="{{ path('profil_sendmail_email_validated') }}">Cliquer ici</a> pour renvoyer le
+                        lien de
+                        vérification.
+                    </p>
+                </div>
+                </div>
+            {% endif %}
+            <div class="row">
+
+                <div class="{{ col_primary }} m-auto">
+
+
+
+
+
+
+                    {{ form_start(form) }}
+
+                    <div class="card card-primary ">
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                {{ form_label(form.name,'', { 'label_attr': {'class':'col-sm-3 col-form-label' }}) }}
+                                <div class="col">
+                                    {{ form_errors(form.name) }}
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(form.email,'', { 'label_attr': {'class':'col-sm-3 col-form-label' }}) }}
+                                <div class="col">
+                                    {{ form_errors(form.email) }}
+                                    {{ form_widget(form.email) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(form.phone,'', { 'label_attr': {'class':'col-sm-3 col-form-label' }}) }}
+                                <div class="col">
+                                    {{ form_errors(form.phone) }}
+                                    {{ form_widget(form.phone) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(form.content,'', { 'label_attr': {'class':'col-sm-3 col-form-label' }}) }}
+                                <div class="col">
+                                    {{ form_errors(form.content) }}
+                                    {{ form_widget(form.content) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col  d-flex justify-content-between align-items-center">
+
+                                    <button class="btn btn-primary " name="update" id="update"><i
+                                                class="fas fa-pencil-alt"></i>
+                                        Modifier
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+
+
+
+                </div>
+                <div class="{{ col_secondary }} m-auto">
+                    <div class="card">
+                        <div class="card-footer">
+                            Habilitations
+                        </div>
+                        <div class="list-group list-group-flush dropright">
+                            <div class="list-group-item list-group-item-action">
+                                {% if 'ROLE_ADMIN' in user.roles %}
+                                    <span class="text-success"><i class="fas fa-check"></i> Administrateur</span>
+                                {% else %}
+                                    <span class="text-danger"><i class="fas fa-times"></i> Administrateur</span>
+                                {% endif %}
+                            </div>
+                            <div class="list-group-item list-group-item-action">
+                                {% if 'ROLE_GESTIONNAIRE' in user.roles %}
+                                    <span class="text-success"><i class="fas fa-check"></i> Gestionnaire</span>
+                                {% else %}
+                                    <span class="text-danger"><i class="fas fa-times"></i> Gestionnaire</span>
+                                {% endif %}
+                            </div>
+                            <div class="list-group-item list-group-item-action">
+                                {% if 'ROLE_USER' in user.roles %}
+                                    <span class="text-success"><i class="fas fa-check"></i> Utilisateur</span>
+                                {% else %}
+                                    <span class="text-danger"><i class="fas fa-times"></i> Utilisateur</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <h5>
+                        <a href="{{ path('profil_password_change') }}"
+                           title="Changer de mot de passe">
+                            Changer de mot de passe
+                        </a>
+                    </h5>
+                    <label class="ml-3 mr-3">|</label>
+                    <h5>
+                        <a id="forget"
+                           href="{{ path('profil_avatar') }}" title="Changer d'avatar">
+                            Changer d'avatar
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

@@ -4,6 +4,14 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    application.name: '%env(APPLICATION_NAME)%'
+    mailer.mail: '%env(MAILER_MAIL)%'
+    mailer.name: '%env(MAILER_NAME)%'
+    mailer.prefixe: '%env(MAILER_PREFIXE)%'
+    mailer.smtp.host: '%env(MAILER_SMTP_HOST)%'
+    mailer.smtp.port: '%env(MAILER_SMTP_PORT)%'
+    mailer.smtp.username: '%env(MAILER_SMTP_USERNAME)%'
+    mailer.smtp.password: '%env(MAILER_SMTP_PASSWORD)%'
 
 services:
     # default configuration for services in *this* file
