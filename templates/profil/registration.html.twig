@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {{ parent() }} - Création de votre compte
+{% endblock %}
+
+
+{% block menu %}
+    {{ include('structure/_menu_entry.html.twig',{anchor:'#create', name:'Création du compte'}) }}
+{% endblock %}
+
+{% block body %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+
+            <!-- Masthead Avatar Image -->
+
+            <!-- Masthead Heading -->
+            <h1 class="masthead-heading text-uppercase mb-0">Journal De Bord</h1>
+
+            <!-- Icon Divider -->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <!-- Masthead Subheading -->
+            <p class="masthead-subheading font-weight-light mb-0">Suivi de l'activité quotidienne</p>
+
+        </div>
+    </header>
+    <section class="page-section" id="create">
+        <div class="container">
+
+            <!-- Contact Section Heading -->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Création du compte</h2>
+
+            <!-- Icon Divider -->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <!-- Contact Section Form -->
+            <div class="login-box col-4 m-auto">
+
+                <div class="card-body login-card-body">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.plainPassword) }}
+
+
+                        <p class="text-center">
+                            <button name="registration" id="registration" class="btn btn-primary mb-4">
+                                Créer un compte
+                            </button>
+                        </p>
+                        {{ form_end(form) }}
+
+                    </div>
+
+                    <p class="mb-1">
+                        <a class="d-flex justify-content-center" href="{{ path('user_login') }}"
+                           title="Create an account">
+                            Déjà un compte ?
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

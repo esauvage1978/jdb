@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {{ parent() }} - Connexion
+{% endblock %}
+
+
+{% block menu %}
+    {{ include('structure/_menu_entry.html.twig',{anchor:'login', name:'Connexion'}) }}
+{% endblock %}
+
+{% block body %}
+    <!-- Masthead -->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+
+            <!-- Masthead Avatar Image -->
+            <img class="masthead-avatar mb-5" src="{{ absolute_url( asset('img/news.png')) }}" alt="">
+
+            <!-- Masthead Heading -->
+            <h1 class="masthead-heading text-uppercase mb-0">Journal De Bord</h1>
+
+            <!-- Icon Divider -->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <!-- Masthead Subheading -->
+            <p class="masthead-subheading font-weight-light mb-0">Suivi de l'activité quotidienne</p>
+
+        </div>
+    </header>
+    <section class="page-section" id="login">
+        <div class="container">
+
+            <!-- Contact Section Heading -->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Connexion</h2>
+
+            <!-- Icon Divider -->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <!-- Contact Section Form -->
+
+
+            <div class="login-box col-4 m-auto">
+                <div class="card">
+                    <div class="card-body login-card-body">
+                        <p class="login-box-msg">Connectez-vous pour ouvrir une session</p>
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        {% if app.user %}
+                            <div class="mb-3">
+                                Vous êtes déjà connecté {{ app.user.name }}, <a href="{{ path('user_logout') }}">
+                                    Déconnexion ?</a>
+                            </div>
+                        {% endif %}
+                        <form class="form-horizontal" method="post">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" value="{{ last_username }}"
+                                       placeholder="Email" name="email" id="inputEmail" required autofocus>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Mot de passe" name="password"
+                                       id="inputPassword" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="icheck-primary">
+                                        <input type="checkbox" id="_remember_me" name="_remember_me">
+                                        <label for="_remember_me">
+                                            Se souvenir de moi ?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-5">
+                                    <button type="submit" id="login" name="login"
+                                            class="btn btn-primary btn-block btn-flat">Connexion
+                                    </button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+
+                        <!-- /.social-auth-links -->
+
+                        <p class="mb-1 mt-5">
+                            <a id="forget"
+                               href="{{ path('profil_password_forget') }}" title="Password forget?">
+                                {{ 'Mot de passe oublié ?' }}
+                            </a>
+                        </p>
+                        <p class="mb-0">
+                            <a href="{{ path('profil_registration') }}"
+                               title="Créer un compte">
+                                {{ 'Créer un compte' }}
+                            </a>
+                        </p>
+                    </div>
+                    <!-- /.login-card-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
