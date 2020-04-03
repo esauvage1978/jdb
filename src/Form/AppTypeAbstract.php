@@ -66,10 +66,10 @@ abstract class AppTypeAbstract extends AbstractType
     }
     public function buildFormUsers(FormBuilderInterface $builder): FormBuilderInterface
     {
-        return $builder
-            ->add('users', EntityType::class, [
-                'class' => User::class,
-                self::LABEL=>'Utilisateurs',
+            return $builder
+                ->add('users', EntityType::class, [
+                    'class' => User::class,
+                    self::LABEL=>'Utilisateurs',
                 self::CHOICE_LABEL => 'name',
                 self::MULTIPLE => true,
                 self::ATTR => ['class' => 'select2'],

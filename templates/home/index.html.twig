@@ -74,7 +74,14 @@
                                 <br/>{{ project.name }}
                             </div>
                         </div>
-                        <img class="img-fluid" src="{{ absolute_url( asset('img/project_default.jpg'))}}" alt="">
+                            {% if project.fileName %}
+                                <img src="{{ absolute_url( asset(project.href)) }}"  class="img-fluid"  "
+                                     alt="{{ project.name }}">
+                            {% else %}
+                                <img class="img-fluid" src="{{ absolute_url( asset('img/project_default.jpg'))}}" alt="{{ project.name }}">
+
+                            {% endif %}
+
                         </a>
                     </div>
                 </div>

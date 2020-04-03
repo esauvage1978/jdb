@@ -4,7 +4,7 @@
 {% set entityName='project' %}
 {% set entity=project %}
 
-{% block title %}{{ parent() }} {{title}}{% endblock %}
+{% block title %}{{ parent() }} {{ title }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ absolute_url( asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')) }}">
@@ -33,10 +33,12 @@
                 </div>
             </div>
 
-
             <div class="d-none">
                 {{ include('share/__btn_save.html.twig') }}
             </div>
+        </div>
+        <div class="d-none">
+            {{ form_rest(form) }}
         </div>
         {{ form_end(form) }}
 
@@ -59,7 +61,6 @@
                 </a>
 
 
-
                 <a href="{{ path('home') }}" class="btn btn-dark ml-5">
                     <i class="fas fa-home"></i> Accueil
                 </a>
@@ -71,5 +72,14 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ absolute_url( asset('js/file/picture.js')) }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(document).on('change', '.custom-file-input', function () {
+                let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+                $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
+            });
+        })
+    </script>
 {% endblock %}
 
