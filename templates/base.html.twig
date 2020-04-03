@@ -19,6 +19,10 @@
     <!-- Theme CSS -->
     <link href="{{ absolute_url( asset('css/freelancer.css')) }}" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ absolute_url( asset('img/icone.png'))}}"/>
+    <link rel="stylesheet" href="{{ absolute_url( asset('plugins/select2/css/select2.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url( asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url( asset('plugins/summernote/summernote-bs4.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url( asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')) }}">
     <meta name="theme-color" content="#2c3e50">
     {% block stylesheets %}{% endblock %}
 </head>
@@ -135,51 +139,6 @@
     </a>
 </div>
 
-<!-- Portfolio Modals -->
-<!-- Portfolio ECHEANCIER 1 -->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog"
-     aria-labelledby="portfolioModal3Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
-            </button>
-            <div class="modal-body text-center">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <!-- Portfolio Modal - Title -->
-                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Echéancier</h2>
-                            <!-- Icon Divider -->
-                            <div class="divider-custom">
-                                <div class="divider-custom-line"></div>
-                                <div class="divider-custom-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="divider-custom-line"></div>
-                            </div>
-                            <!-- Portfolio Modal - Image -->
-                            <img class="img-fluid rounded mb-5" src="img/portfolio/echeancier_big.png" alt="">
-                            <!-- Portfolio Modal - Text -->
-                            <p class="mb-5">Application web de gestion des échéances. Saisie à partir de formulaires
-                                modulables. Exportation vers Excel </p>
-                            <p>Technologies : C#, Mysql, Boostrap</p>
-                            <button class="btn btn-primary" href="#" data-dismiss="modal">
-                                <i class="fas fa-times fa-fw"></i>
-                                Fermer la fenêtre
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <!-- Bootstrap core JavaScript -->
 <script src="{{ absolute_url( asset('vendor/jquery/jquery.min.js'))}}"></script>
 <script src="{{ absolute_url( asset('vendor/bootstrap/js/bootstrap.bundle.min.js'))}}"></script>
@@ -191,8 +150,41 @@
 <script src="{{ absolute_url( asset('js/jqBootstrapValidation.js'))}}"></script>
 <script src="{{ absolute_url( asset('js/contact_me.js'))}}"></script>
 
+<!-- Summernote -->
+<script src="{{ absolute_url( asset('plugins/summernote/summernote-bs4.min.js')) }}"></script>
+<script src="{{ absolute_url( asset('plugins/summernote/lang/summernote-fr-FR.js')) }}"></script>
+<script src="{{ absolute_url( asset('plugins/select2/js/select2.min.js')) }}"></script>
+<script src="{{ absolute_url( asset('plugins/select2/js/i18n/fr.js')) }}"></script>
+
 <!-- Custom scripts for this template -->
 <script src="{{ absolute_url( asset('js/freelancer.min.js'))}}"></script>
+
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote({
+            lang: 'fr-FR'
+        });
+
+        //$('div.form-check').addClass('icheck-primary d-inline');
+        $('div.form-check').addClass('custom-switch custom-switch-off-danger custom-switch-on-success');
+        $('input.form-check-input').addClass('custom-control-input');
+        $('label.form-check-label').addClass('custom-control-label');
+
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(document).ready(function() {
+        $('.select2').select2({
+            language: "fr",
+            theme: 'bootstrap4'
+        });
+
+        $('.select2').addClass('bg-white col');
+        $('.select2-selection__choice').addClass('bg-light');
+    });
+</script>
+
 {% block javascripts %}{% endblock %}
 </body>
 

@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% set title='Projet' %}
+{% set route_index='home' %}
+{% set entityName='project' %}
+{% set entity=project %}
+
+{% block title %}{{ parent() }} {{ title }}{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block sidebar_button %}
+
+        {{ include('share/__btn_edit.html.twig',
+            {   'url':entityName ~'_edit',
+                'id':entity.id
+            }) }}
+
+
+    <span class="mb-3"></span>
+
+    {{ include('share/__btn_return_list.html.twig',
+        {   url:route_index
+        }) }}
+{% endblock %}
+
+{% block body %}
+
+<header class="masthead bg-primary text-white ">
+        <div class="container">
+
+            <!-- About Section Heading -->
+            <h2 class="page-section-heading text-center text-uppercase text-white">
+                {{ entity.name }}
+                {% if entity.enable %}
+                    <span class="text-success small "><i class="fa fa-fw fa-check-circle"></i></span>
+                {% else %}
+                    <span class="text-warning small"><i class="fa fa-fw fa-times-circle"></i></span>
+                {% endif %}
+            </h2>
+
+            <!-- Icon Divider -->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-lg-2 text-center">
+                    {% for user in entity.users %}
+                    <div class="image">
+                            <img src="{{ user.avatar.image }}" class="rounded " alt="User Image">
+                    </div>
+                    <div class="info ">
+                            {{ user.name }}
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-xs-12 col-lg-10">
+                    <div class=" pt-4 pt-md-0">
+
+                        <p class="lead text-left">
+                            {{entity.content |raw}}
+                        </p>
+                        <p class="text-right mt-5 ">
+                            <a href="{{ path('project_edit',{id:entity.id}) }}" class="btn btn-secondary p-1 " style="font-size: 150%"> Modifier</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="row justify-content-center">
+        <div id="anchor_name" class="jumbotron col-12 text-center text-purple">
+            <h3>
+                <i class="fas fa-angle-right"></i>
+            </h3>
+            <small class="float-right">
+
+            </small>
+        </div>
+        {{ include(entityName~'/_show/_content.html.twig',{content:entity.content}) }}
+
+
+
+
+        {% if entity.users | length >0 %}
+        <div class="col-10">
+            <h5 class="text-purple p-1 pt-4 text-center ">
+                <i class="fas fa-users"></i> Utilisateurs
+            </h5>
+            <div class="card ">
+                <div class="card-body text-justify">
+                    {% for user in entity.users %}
+
+                    {% else %}
+                        <div class="list-group-item">En attente d'ajout</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="{{ absolute_url( asset('js/add_sidebar.js')) }}"></script>
+{% endblock %}

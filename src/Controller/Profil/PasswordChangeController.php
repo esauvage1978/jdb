@@ -1,13 +1,5 @@
 <?php
 
-/*
- *
- *  @author ragus.
- *
- * (c) Ragus <emmanuel.sauvage@live.fr>
- *
- */
-
 namespace App\Controller\Profil;
 
 use App\Controller\AppControllerAbstract;

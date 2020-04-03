@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% set title='Projet' %}
+{% set entityName='project' %}
+{% set entity=project %}
+
+{% block title %}{{ parent() }} {{title}}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url( asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')) }}">
+{% endblock %}
+
+
+{% block body %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Heading -->
+            <p class="masthead-subheading font-weight-light mb-0">Nouveau projet</p>
+        </div>
+    </header>
+
+    <div class="container mt-5 mb-5">
+        {{ form_start(form) }}
+        <div class="row">
+
+            <div id="col2"
+                 class=" col-sm-12  col-md-12 col-lg-8 m-auto">
+                <div class=" bg-light pl-5 pr-5 pb-5">
+                    {{ include(entityName~'/_edit/_name.html.twig') }}
+                </div>
+                <div class="d-none">
+                    <button name="update" id="update">{{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+
+
+            <div class="d-none">
+                {{ include('share/__btn_save.html.twig') }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+        <div class="d-none">
+            {{ include('share/_delete_form.html.twig',{domaine: entityName,'id':entity.id}) }}
+        </div>
+    </div>
+
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <div class="container d-flex justify-content-center">
+            <form class="form-inline">
+                {{ include('share/__btn_save_onclick.html.twig') }}
+
+                <span class="btn btn-danger ml-5" onclick="$('#delete').click();">
+                    <i class="fas fa-trash"></i> Supprimer
+                </span>
+
+                <a class="btn btn-dark ml-5" href="{{ path('project_show',{id:entity.id}) }}">
+                    <i class="fas fa-step-backward"></i> Consulter
+                </a>
+
+
+
+                <a href="{{ path('home') }}" class="btn btn-dark ml-5">
+                    <i class="fas fa-home"></i> Accueil
+                </a>
+            </form>
+        </div>
+    </nav>
+
+
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+

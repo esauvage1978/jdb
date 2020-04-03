@@ -6,7 +6,7 @@ use App\Controller\AppControllerAbstract;
 use App\Entity\User;
 use App\Event\UserRegistrationEvent;
 use App\Form\Profil\RegistrationFormType;
-use App\Helper\UserSendmail;
+use App\Mail\UserMail;
 use App\Manager\UserManager;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,10 +77,10 @@ class RegistrationController extends AppControllerAbstract
     /**
      * @Route("/profil/sendmail/emailvalidated", methods={"GET"}, name="profil_sendmail_email_validated")
      */
-    public function sendmailActivationAction(UserSendMail $mail): Response
+    public function sendmailActivationAction(UserMail $mail): Response
     {
         $user = $this->getUser();
-        $mail->send($user, UserSendmail::VALIDATE, 'Validation de l\'email');
+        $mail->send($user, UserMail::VALIDATE, 'Validation de l\'email');
         $this->addFlash('success', 'Le mail est envoyé, merci de consulter votre messagerie.');
 
         return $this->redirectToRoute('home');

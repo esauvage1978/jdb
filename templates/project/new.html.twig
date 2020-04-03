@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% set title='project' %}
+{% set entityName='project' %}
+{% set entity=project %}
+
+{% block title %}{{ parent() }} {{ title }}{% endblock %}
+
+
+{% block body %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Heading -->
+            <p class="masthead-subheading font-weight-light mb-0">Nouveau projet</p>
+        </div>
+    </header>
+
+    <div class="container mt-5 mb-5">
+
+
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div id="col1"
+                 class="col-sm-12 col-md-12 col-lg-4 ">
+                <div class="shadow">
+                    {{ include(entityName~'/_edit/_afficher.html.twig') }}
+                </div>
+            </div>
+            <div id="col2"
+                 class=" col-sm-12  col-md-12 col-lg-8 ">
+                <div class="shadow bg-white pl-5 pr-5 pb-5">
+                    {{ include(entityName~'/_edit/_name.html.twig') }}
+                </div>
+                <div class="d-none">
+                    <button name="update" id="update">{{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+
+            <div class="d-none">
+                {{ include('share/__btn_save.html.twig') }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <div class="container d-flex flex-row-reverse bd-highlight">
+            <form class="form-inline">
+                {{ include('share/__btn_save_onclick.html.twig') }}
+
+                <a href="{{ path('home') }}" class="btn btn-light ml-5">
+                    Accueil
+                </a>
+            </form>
+        </div>
+    </nav>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="{{ absolute_url( asset('js/add_sidebar.js')) }}"></script>
+{% endblock %}
+

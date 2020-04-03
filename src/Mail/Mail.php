@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace App\Mail;
 
 use App\Entity\User;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -15,8 +15,10 @@ use Twig\Environment;
  * @author Emmanuel SAUVAGE <emmanuel.sauvage@live.fr>
  * @version 1.0.0
  */
-class SendMail
+class Mail
 {
+    const USERS_TO='users_to';
+
     /**
      * @var array
      */
@@ -107,7 +109,7 @@ class SendMail
 
     /**
      * @param mixed $paramsTwig
-     * @return SendMail
+     * @return Mail
      */
     public function setParamsTwig($paramsTwig)
     {
@@ -120,7 +122,7 @@ class SendMail
     //   CONTEXT
     //######################################
 
-    public function setContext($context): SendMail
+    public function setContext($context): Mail
     {
         $this->context = $context;
         return $this;
@@ -137,7 +139,7 @@ class SendMail
     //   SUBJECT
     //######################################
 
-    public function setSubject($subject): SendMail
+    public function setSubject($subject): Mail
     {
         $this->subject = $subject;
         return $this;
@@ -154,7 +156,7 @@ class SendMail
     //   USER TO
     //######################################
 
-    public function setUserTo( User $user): SendMail
+    public function setUserTo( User $user): Mail
     {
         $this->usersTo=  new Address($user->getEmail() , $user->getUsername());
         return $this;
@@ -162,6 +164,14 @@ class SendMail
 
     private function getUserTo( )
     {
+        if(in_array(self::USERS_TO, $this->paramsTwig)) {
+            foreach($this->paramsTwig[self::USERS_TO] as $user) {
+                $this->usersTo=array_merge(
+                    $this->usersTo,
+                    [new Address($user->getEmail() , $user->getUsername())]);
+            }
+        }
+
         return  empty($this->usersTo)
             ?  new Address($this->params->get('mailer.mail'),$this->params->get('mailer.name'))
             : $this->usersTo;
@@ -171,7 +181,7 @@ class SendMail
     //   USER FROM
     //######################################
 
-    public function setUserFrom( User $user): SendMail
+    public function setUserFrom( User $user): Mail
     {
         $this->userFrom=  [new Address($user->getEmail() , $user->getUsername())];
         return $this;

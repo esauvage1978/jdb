@@ -102,9 +102,15 @@ class User implements UserInterface, EntityInterface
      */
     private $Avatar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="users")
+     */
+    private $projects;
+
 
     public function __construct()
     {
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -339,6 +345,34 @@ class User implements UserInterface, EntityInterface
     public function setAvatar(?Avatar $Avatar): self
     {
         $this->Avatar = $Avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            $project->removeUser($this);
+        }
 
         return $this;
     }
