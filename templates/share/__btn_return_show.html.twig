@@ -1,0 +1,4 @@
+<a class="btn btn-outline-light {{  sm | default('') ?  'btn-sm' : ''  }}"
+   href="{{ path(url, {'id': id}) }}{{  anchor | default('')}}">
+    <i class="fas fa-step-backward"></i> {{ titre | default('Retour à la consultation') | raw }}
+</a>

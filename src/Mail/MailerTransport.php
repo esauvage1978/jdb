@@ -1,12 +1,14 @@
 <?php
 
-
-namespace App\Helper;
-
+namespace App\Mail;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
+/**
+ * @author Emmanuel SAUVAGE <emmanuel.sauvage@live.fr>
+ * @version 1.0.0
+ */
 class MailerTransport
 {
     /**
